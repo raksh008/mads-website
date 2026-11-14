@@ -4,24 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MADS — Your finance pal</title>
-<meta name="description" content="Track every expense, see where your money really goes, and make good use of it before the month runs out. Built for students and young earners.">
+<meta name="description" content="Track every expense, see where your money really goes, and make good use of it before the month runs out. Built for anyone who wants to keep their expenses on track.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0A0A0A;--y:#FFB020;--card:#141414;--line:rgba(255,255,255,.1)}
+:root{--bg:#000;--y:#2997ff;--card:#1d1d1f;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:#fff;font-family:Inter,-apple-system,sans-serif;overflow-x:hidden}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{padding-top:68px}
+header#top{position:fixed;top:0;left:0;right:0;z-index:40;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+header#top.scrolled{background:rgba(0,0,0,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-color:var(--line)}
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 32px;max-width:1160px;margin:0 auto}
 .logo{height:28px}
-.btn{display:inline-block;background:var(--y);color:#0A0A0A;font-weight:700;padding:12px 22px;border-radius:12px;border:0;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}
-.btn.ghost{background:transparent;color:var(--y);border:1px solid var(--y);padding:9px 16px;font-size:14px}
+.btn{display:inline-block;background:#0071e3;color:#fff;font-weight:600;padding:12px 24px;border-radius:980px;border:0;font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--y);border:1px solid var(--y);border-radius:980px;padding:8px 16px;font-size:14px}
 /* intro */
 #intro{position:relative;height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 #intro .layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s,transform .4s,filter .4s}
 #intro .hide{opacity:0;transform:scale(.94);filter:blur(14px);pointer-events:none}
 .beat{display:flex;gap:18px;font-size:clamp(20px,3vw,30px);font-weight:600;letter-spacing:-.02em;opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
-.beat b{color:#FF5A5F}
+.beat b{color:#ff453a}
 .beat.on,.q.on{opacity:1;transform:none}
 .q{font-size:clamp(18px,2.4vw,26px);font-style:italic;color:rgba(255,255,255,.6);text-align:center;padding:0 24px;opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
 .chip{position:absolute;padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:rgba(255,255,255,.75);font-size:14px;font-weight:600;animation:fly linear infinite;opacity:0}
@@ -42,11 +45,11 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:20px 3
 #brand .tag{font-size:clamp(20px,2.4vw,26px);font-weight:500;color:var(--y);opacity:0;transition:opacity .7s 1.3s}
 #brand.on .tag{opacity:1}
 /* hero */
-.hero{position:relative;text-align:center;padding:0 24px 110px;max-width:1160px;margin:0 auto}
-.glow{position:absolute;left:50%;top:-40px;width:520px;height:520px;border-radius:50%;background:rgba(255,176,32,.18);filter:blur(120px);transform:translateX(-50%);pointer-events:none}
+.hero{position:relative;text-align:center;padding:0 24px 50px;max-width:1160px;margin:0 auto}
+.glow{position:absolute;left:50%;top:-40px;width:520px;height:520px;border-radius:50%;background:rgba(41,151,255,.16);filter:blur(120px);transform:translateX(-50%);pointer-events:none}
 .badge{position:relative;display:inline-flex;gap:8px;align-items:center;font-size:13px;color:rgba(255,255,255,.7);border:1px solid var(--line);background:rgba(255,255,255,.04);padding:7px 14px;border-radius:100px}
 .badge i{width:7px;height:7px;border-radius:50%;background:var(--y)}
-h1{position:relative;font-size:clamp(40px,7vw,84px);letter-spacing:-.04em;line-height:1.04;margin:26px 0 22px}
+h1{position:relative;font-weight:600;font-size:clamp(40px,7vw,84px);letter-spacing:-.035em;line-height:1.05;margin:26px 0 22px}
 h1 span{color:var(--y)}
 .sub{position:relative;max-width:620px;margin:0 auto 32px;color:rgba(255,255,255,.62);font-size:18px;line-height:1.55}
 form{position:relative;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -68,24 +71,54 @@ input:focus{outline:1px solid var(--y)}
 #rest.show{opacity:1;transform:none;pointer-events:auto}
 body.lock{overflow:hidden;height:100vh}
 footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.4);font-size:13px;max-width:1160px;margin:0 auto}
+
+/* ---- scroll motion ---- */
+.rv{opacity:0;transform:translateY(46px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s);will-change:opacity,transform}
+.rv.in{opacity:1;transform:none}
+.hero-in{will-change:transform,opacity}
+.glow{will-change:transform}
+/* scrubbed words */
+.scrub{max-width:980px;margin:0 auto;padding:8vh 24px 4vh;text-align:center}
+.scrub p{font-size:clamp(28px,5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.12}
+.scrub .w{opacity:.18;transition:opacity .25s linear}
+.scrub .w.on{opacity:1}
+.scrub .w.hl.on{color:var(--y)}
+/* auto-playing story */
+.story{position:relative;padding:10vh 0 4vh}
+.stage{position:relative;height:min(52vh,460px);min-height:330px}
+.step{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;opacity:0;transform:translateY(40px) scale(.96);filter:blur(12px);pointer-events:none;transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1),filter 1s}
+.step.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.step small{color:var(--y);font-weight:600;font-size:18px;letter-spacing:.04em}
+.step h3{font-size:clamp(44px,9vw,120px);font-weight:600;letter-spacing:-.045em;line-height:1;margin:14px 0 22px}
+.step p{max-width:560px;color:rgba(255,255,255,.6);font-size:clamp(17px,2vw,22px);line-height:1.5}
+.dots{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.dots b{width:56px;height:6px;border-radius:6px;background:rgba(255,255,255,.18);overflow:hidden;cursor:pointer;display:block}
+.dots b i{display:block;height:100%;width:0;background:#f5f5f7;border-radius:6px}
+.dots b.on i{animation:fill var(--dur,4.5s) linear forwards;animation-play-state:var(--ps,paused)}
+.dots b.done i{width:100%}
+@keyframes fill{to{width:100%}}
+.cta{text-align:center;padding:6vh 24px 12vh}
+.cta h2{font-weight:600;font-size:clamp(34px,6vw,72px);letter-spacing:-.035em;line-height:1.05;margin-bottom:30px}
+.cta h2 span{color:var(--y)}
+@media (prefers-reduced-motion:reduce){.step{transition:none}.rv{opacity:1;transform:none;transition:none}.scrub .w{opacity:1}}
 </style>
 </head>
 <body class="lock">
-<nav>
-  <svg class="logo" viewBox="40 50 535 165" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><path d="M50 200 V145 A35 35 0 0 1 120 145 V200 M120 145 A35 35 0 0 1 190 145 V200"/><circle cx="270" cy="155" r="45"/><path d="M315 110 V200"/><circle cx="400" cy="155" r="45"/><path d="M445 60 V200" stroke="#FFB020"/><path d="M562 128 C548 106 498 106 498 138 C498 166 562 150 562 180 C562 210 510 210 494 188"/></svg>
+<header id="top"><nav>
+  <svg class="logo" viewBox="40 50 535 165" fill="none" stroke="#f5f5f7" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><path d="M50 200 V145 A35 35 0 0 1 120 145 V200 M120 145 A35 35 0 0 1 190 145 V200"/><circle cx="270" cy="155" r="45"/><path d="M315 110 V200"/><circle cx="400" cy="155" r="45"/><path d="M445 60 V200" stroke="#2997ff"/><path d="M562 128 C548 106 498 106 498 138 C498 166 562 150 562 180 C562 210 510 210 494 188"/></svg>
   <a class="btn ghost" href="#waitlist">Join waitlist</a>
-</nav>
+</nav></header>
 
 <section id="intro" aria-label="MADS intro">
   <div class="layer" id="beats"></div>
   <div id="stop" aria-hidden="true"></div>
   <div id="sol">We have a solution.</div>
   <div class="layer" id="brand"><div class="wrap">
-    <svg viewBox="40 50 535 165" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="40 50 535 165" fill="none" stroke="#f5f5f7" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
       <path pathLength="1" d="M50 200 V145 A35 35 0 0 1 120 145 V200 M120 145 A35 35 0 0 1 190 145 V200"/>
       <circle pathLength="1" cx="270" cy="155" r="45"/><path pathLength="1" d="M315 110 V200"/>
       <circle pathLength="1" cx="400" cy="155" r="45"/>
-      <path pathLength="1" d="M445 60 V200" stroke="#FFB020"/>
+      <path pathLength="1" d="M445 60 V200" stroke="#2997ff"/>
       <path pathLength="1" d="M562 128 C548 106 498 106 498 138 C498 166 562 150 562 180 C562 210 510 210 494 188"/>
     </svg>
     <div class="tag">Your finance pal.</div>
@@ -95,9 +128,10 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
 <div id="rest">
 <section class="hero" id="waitlist">
   <div class="glow"></div>
+  <div class="hero-in">
   <span class="badge"><i></i>Waitlist open · Worldwide</span>
   <h1>Know where every <span>rupee</span> goes.</h1>
-  <p class="sub">Track every expense, see where your money really goes, and make good use of it before the month runs out. Built for students and young earners.</p>
+  <p class="sub">Track every expense, see where your money really goes, and make good use of it before the month runs out. Built for anyone who wants to keep their expenses on track.</p>
   <!-- Set FORM_ACTION below to your form endpoint (see README) -->
   <form id="wl" action="FORM_ACTION" method="POST">
     <input type="email" name="email" placeholder="you@email.com" required aria-label="Email">
@@ -105,18 +139,28 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
   </form>
   <p class="note" id="note">No spam. One email when MADS is live.</p>
   <p id="thanks">🎉 You're one step away from becoming a billionaire,<br>because every penny is worth it.</p>
-</section>
-
-<section class="feat">
-  <h2>Money stuff, minus the stress.</h2>
-  <div class="grid">
-    <div class="card"><small>01</small><h3>Track every rupee</h3><p>Log spends in seconds and see exactly where your money goes, no spreadsheets.</p></div>
-    <div class="card"><small>02</small><h3>Spot the leaks</h3><p>Find the small daily spends quietly eating your month, before they pile up.</p></div>
-    <div class="card"><small>03</small><h3>Make it last</h3><p>Plan ahead so the end of the month isn't a surprise. Good money habits, made easy.</p></div>
   </div>
 </section>
 
-<footer><span>mads</span><span>© 2026 MADS</span></footer>
+<section class="scrub" id="scrub">
+  <p data-scrub>It's not the big things. It's the 1am Zomato, the "just one party", the coffee. Again. MADS shows you every <span class="hl">leak</span>, so your money lasts the whole month.</p>
+</section>
+
+<section class="story" id="story">
+  <div class="stage">
+    <div class="step on"><small>01</small><h3>Track every rupee.</h3><p>Log spends in seconds and see exactly where your money goes. No spreadsheets.</p></div>
+    <div class="step"><small>02</small><h3>Spot the leaks.</h3><p>Find the small daily spends quietly eating your month, before they pile up.</p></div>
+    <div class="step"><small>03</small><h3>Make it last.</h3><p>Plan ahead so month end isn't a surprise. Good money habits, made easy.</p></div>
+  </div>
+  <div class="dots"><b><i></i></b><b><i></i></b><b><i></i></b></div>
+</section>
+
+<section class="cta">
+  <h2 class="rv">Make every <span>rupee</span> count.</h2>
+  <a class="btn rv" style="--d:.15s" href="#waitlist">Join the waitlist</a>
+</section>
+
+<footer class="rv"><span>mads</span><span>© 2026 MADS</span></footer>
 </div>
 
 <canvas id="confetti"></canvas>
@@ -152,7 +196,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
   function party(){
     var cv=document.getElementById("confetti"),cx=cv.getContext("2d");
     function size(){cv.width=innerWidth;cv.height=innerHeight}size();
-    var cols=["#FFB020","#ffffff","#FF5A5F","#5ad1a0","#6aa8ff"],ps=[];
+    var cols=["#2997ff","#ffffff","#ff453a","#30d158","#0071e3"],ps=[];
     function burst(x,y,n){for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2,v=6+Math.random()*10;
       ps.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6,w:6+Math.random()*6,h:3+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:0})}}
     burst(innerWidth*.2,innerHeight*.55,90);burst(innerWidth*.8,innerHeight*.55,90);
@@ -173,6 +217,68 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
       if(r.ok){celebrate()}
       else alert("Something went wrong. Please try again.")}).catch(function(){alert("Something went wrong. Please try again.")});
   });
+})();
+</script>
+<script>
+(function(){
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var touch=matchMedia("(pointer: coarse)").matches;
+  var $=function(q){return document.querySelector(q)},clamp=function(v,a,b){return Math.max(a,Math.min(b,v))};
+  var body=document.body;
+  /* 1. smooth inertia scroll (desktop) */
+  var cur=scrollY,tgt=scrollY,raf=0;
+  function max(){return document.documentElement.scrollHeight-innerHeight}
+  function step(){cur+=(tgt-cur)*.085;if(Math.abs(tgt-cur)<.4){cur=tgt;raf=0;scrollTo(0,cur);return}scrollTo(0,cur);raf=requestAnimationFrame(step)}
+  if(!reduce&&!touch){
+    addEventListener("wheel",function(e){
+      if(body.classList.contains("lock")||e.ctrlKey)return;
+      e.preventDefault();
+      tgt=clamp(tgt+e.deltaY*(e.deltaMode===1?32:1),0,max());
+      if(!raf)raf=requestAnimationFrame(step)
+    },{passive:false});
+    addEventListener("scroll",function(){if(!raf){cur=tgt=scrollY}});
+  }
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+    var t=$(a.getAttribute("href"));if(!t)return;e.preventDefault();
+    var y=clamp(t.getBoundingClientRect().top+scrollY-68,0,max());
+    if(reduce||touch){scrollTo({top:y,behavior:reduce?"auto":"smooth"})}else{tgt=y;if(!raf)raf=requestAnimationFrame(step)}
+  });
+  /* 2. fade-up reveals */
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.15});
+  document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
+  /* 3. split scrub text into words */
+  var sp=$("[data-scrub]"),words=[];
+  (function split(node){Array.prototype.slice.call(node.childNodes).forEach(function(n){
+    if(n.nodeType===3){var f=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(function(t){
+      if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}
+      var w=document.createElement("span");w.className="w"+(node.classList.contains("hl")?" hl":"");w.textContent=t;f.appendChild(w);words.push(w)});n.replaceWith(f)}
+    else if(n.nodeType===1)split(n)})})(sp);
+  /* 4. scroll-linked effects */
+  var hdr=$("#top"),hero=$(".hero"),heroIn=$(".hero-in"),glow=$(".glow"),story=$("#story"),steps=document.querySelectorAll(".step"),dots=document.querySelectorAll(".dots b"),scrub=$("#scrub");
+  /* 5. self-playing story */
+  function show(n){steps.forEach(function(e,i){e.classList.toggle("on",i===n)});
+    dots.forEach(function(d,i){d.classList.remove("on","done");void d.offsetWidth;if(i<n)d.classList.add("done");if(i===n)d.classList.add("on")})}
+  if(!reduce){
+    dots.forEach(function(d,i){d.addEventListener("click",function(){show(i)});
+      d.firstChild.addEventListener("animationend",function(){show((i+1)%steps.length)})});
+    new IntersectionObserver(function(en){story.style.setProperty("--ps",en[0].isIntersecting?"running":"paused")},{threshold:.4}).observe(story);
+    show(0);
+  }
+  var tick=0;
+  function update(){
+    tick=0;var y=scrollY,H=innerHeight;
+    hdr.classList.toggle("scrolled",y>10);
+    if(reduce){words.forEach(function(w){w.classList.add("on")});return}
+    var r=hero.getBoundingClientRect(),p=clamp(-r.top/(r.height*.9),0,1);
+    heroIn.style.transform="translateY("+(p*50)+"px) scale("+(1-p*.07)+")";
+    heroIn.style.opacity=1-p*.9;
+    glow.style.transform="translate(-50%,"+(p*140)+"px)";
+    var sr=scrub.getBoundingClientRect(),sp2=clamp((H*.85-sr.top)/(sr.height*.85+H*.25),0,1),n=Math.round(sp2*words.length*1.15);
+    words.forEach(function(w,i){w.classList.toggle("on",i<n)});
+  }
+  function req(){if(!tick)tick=requestAnimationFrame(update)}
+  addEventListener("scroll",req,{passive:true});addEventListener("resize",req);update();
 })();
 </script>
 </body>
