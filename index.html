@@ -53,7 +53,9 @@ form{position:relative;display:flex;gap:10px;justify-content:center;flex-wrap:wr
 input[type=email]{width:min(340px,100%);padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:#fff;font:inherit}
 input:focus{outline:1px solid var(--y)}
 .note{position:relative;margin-top:14px;font-size:13px;color:rgba(255,255,255,.4)}
-#thanks{display:none;color:var(--y);font-weight:600}
+#thanks{position:relative;display:none;color:var(--y);font-weight:700;font-size:clamp(20px,3vw,28px);line-height:1.35;letter-spacing:-.02em;animation:rise .7s cubic-bezier(.2,.8,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
 /* features */
 .feat{max-width:1160px;margin:0 auto;padding:0 24px 100px;text-align:center}
 .feat h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;margin-bottom:36px}
@@ -102,7 +104,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
     <button class="btn" type="submit">Join waitlist</button>
   </form>
   <p class="note" id="note">No spam. One email when MADS is live.</p>
-  <p class="note" id="thanks">You're on the list. Thanks!</p>
+  <p id="thanks">🎉 You're one step away from becoming a billionaire,<br>because every penny is worth it.</p>
 </section>
 
 <section class="feat">
@@ -117,6 +119,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
 <footer><span>mads</span><span>© 2026 MADS</span></footer>
 </div>
 
+<canvas id="confetti"></canvas>
 <script>
 (function(){
   var beats=[["🍕 Zomato at 1am.","−₹349"],["🎉 “Just one party.”","−₹2,400"],["☕ Coffee. Again.","−₹180"]];
@@ -144,13 +147,30 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
   setTimeout(function(){sol.classList.remove("on");stop.style.display="none"},7900);
   setTimeout(function(){brand.classList.add("on")},8000);
   setTimeout(function(){document.getElementById("rest").classList.add("show");document.body.classList.remove("lock")},9800);
+
+  /* party pops */
+  function party(){
+    var cv=document.getElementById("confetti"),cx=cv.getContext("2d");
+    function size(){cv.width=innerWidth;cv.height=innerHeight}size();
+    var cols=["#FFB020","#ffffff","#FF5A5F","#5ad1a0","#6aa8ff"],ps=[];
+    function burst(x,y,n){for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2,v=6+Math.random()*10;
+      ps.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6,w:6+Math.random()*6,h:3+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:0})}}
+    burst(innerWidth*.2,innerHeight*.55,90);burst(innerWidth*.8,innerHeight*.55,90);
+    setTimeout(function(){burst(innerWidth*.5,innerHeight*.4,120)},350);
+    (function tick(){cx.clearRect(0,0,cv.width,cv.height);
+      ps.forEach(function(p){p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
+        cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=Math.max(0,1-p.life/140);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});
+      ps=ps.filter(function(p){return p.life<140&&p.y<cv.height+40});
+      if(ps.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height)})();
+  }
+  function celebrate(){var f=document.getElementById("wl");f.style.display="none";document.getElementById("note").style.display="none";document.getElementById("thanks").style.display="block";party()}
   /* waitlist form */
   var f=document.getElementById("wl");
   f.addEventListener("submit",function(e){
-    if(f.action.indexOf("FORM_ACTION")>-1){e.preventDefault();alert("Waitlist form isn't connected yet.");return}
+    if(f.action.indexOf("FORM_ACTION")>-1){e.preventDefault();if(location.search.indexOf("demo")>-1){celebrate();return}alert("Waitlist form isn't connected yet.");return}
     e.preventDefault();
     fetch(f.action,{method:"POST",headers:{"Accept":"application/json"},body:new FormData(f)}).then(function(r){
-      if(r.ok){f.style.display="none";document.getElementById("note").style.display="none";document.getElementById("thanks").style.display="block"}
+      if(r.ok){celebrate()}
       else alert("Something went wrong. Please try again.")}).catch(function(){alert("Something went wrong. Please try again.")});
   });
 })();
