@@ -62,10 +62,13 @@ input:focus{outline:1px solid var(--y)}
 .card small{color:var(--y);font-weight:700}
 .card h3{margin:14px 0 8px;font-size:22px;letter-spacing:-.02em}
 .card p{color:rgba(255,255,255,.55);line-height:1.5;font-size:15px}
+#rest{opacity:0;transform:translateY(40px);transition:opacity 1.4s ease,transform 1.4s ease;pointer-events:none}
+#rest.show{opacity:1;transform:none;pointer-events:auto}
+body.lock{overflow:hidden;height:100vh}
 footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.4);font-size:13px;max-width:1160px;margin:0 auto}
 </style>
 </head>
-<body>
+<body class="lock">
 <nav>
   <svg class="logo" viewBox="40 50 535 165" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"><path d="M50 200 V145 A35 35 0 0 1 120 145 V200 M120 145 A35 35 0 0 1 190 145 V200"/><circle cx="270" cy="155" r="45"/><path d="M315 110 V200"/><circle cx="400" cy="155" r="45"/><path d="M445 60 V200" stroke="#FFB020"/><path d="M562 128 C548 106 498 106 498 138 C498 166 562 150 562 180 C562 210 510 210 494 188"/></svg>
   <a class="btn ghost" href="#waitlist">Join waitlist</a>
@@ -87,6 +90,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
   </div></div>
 </section>
 
+<div id="rest">
 <section class="hero" id="waitlist">
   <div class="glow"></div>
   <span class="badge"><i></i>Waitlist open · Worldwide</span>
@@ -111,6 +115,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
 </section>
 
 <footer><span>mads</span><span>© 2026 MADS</span></footer>
+</div>
 
 <script>
 (function(){
@@ -138,6 +143,7 @@ footer{border-top:1px solid var(--line);padding:28px 32px;display:flex;justify-c
   setTimeout(function(){sh.forEach(function(d){d.style.transform=d._t;d.style.opacity=0});sol.classList.add("on")},7200);
   setTimeout(function(){sol.classList.remove("on");stop.style.display="none"},7900);
   setTimeout(function(){brand.classList.add("on")},8000);
+  setTimeout(function(){document.getElementById("rest").classList.add("show");document.body.classList.remove("lock")},9800);
   /* waitlist form */
   var f=document.getElementById("wl");
   f.addEventListener("submit",function(e){
