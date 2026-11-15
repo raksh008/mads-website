@@ -1,7 +1,6 @@
 # MADS website
 
-Waitlist landing page for MADS, "Your finance pal". It is built in Framer and published at https://incomparable-someone-103434.framer.app (free link for now; a custom domain comes later).
-
+Waitlist landing page for MADS, "Your finance pal". It is built in Framer and published at https://raksh008.github.io/mads-website/
 Framer keeps the page layout in its own editor, so this folder holds the parts that can live as code plus the design notes.
 
 ## What's here
